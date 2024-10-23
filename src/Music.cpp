@@ -19,7 +19,8 @@ class Music{
         }
 
         void Play(int times = -1){
-            Mix_PlayMusic(music, times); // tratatr nullptr
+            if(music == nullptr) return; // Talvez comunicar que aconteceu?
+            Mix_PlayMusic(music, times);
         }
 
         void Stop(int msToStop = 1500){
@@ -27,7 +28,12 @@ class Music{
         }
 
         void Open(std::string file);{
-            Mix_Music* Mix_LoadMUS(file.c_str()); // tratatr nullptr
+            music = Mix_LoadMUS(file.c_str()); 
+            if(music == nullptr){
+                SDL_Log(SDL_GetError());
+                SDL_Log("Musica nao BRIU");
+                throw SDL_GetError();
+            }
         }
         
         bool IsOpen(){ return music == nullptr;}

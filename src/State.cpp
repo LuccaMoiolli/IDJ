@@ -6,7 +6,8 @@ class State{
     public:
         State(){
             quitRequested = false;
-            bg = Sprite();
+            bg = Sprite("Recursos/img/Background.png");
+            music = Music("Recursos/audio/BGM.wav");
         }
 
         bool QuitRequested (){
