@@ -1,15 +1,34 @@
-#define INCLUDE_SDL_MIXER
-#include <SDL_include.h>
-#include <string>
+#include <Music.h>
 
 class Music{
-    public:
-        Music();
-        Music(std::string file);
-        void Play(int times = -1);
-        void Stop(int msToStop = 1500);
-        void Open(std::string file);
-        bool IsOpen();
     private:
         Mix_Music* music;
+    public:
+        Music(){
+            music = nullptr;
+        }
+
+        Music(std::string file){
+            music = nullptr;
+            this->Open(file);
+        }
+        
+        ~Music(){
+            Stop(0);
+            Mix_FreeMusic(music);
+        }
+
+        void Play(int times = -1){
+            Mix_PlayMusic(music, times); // tratatr nullptr
+        }
+
+        void Stop(int msToStop = 1500){
+            Mix_FadeOutMusic(msToStop);
+        }
+
+        void Open(std::string file);{
+            Mix_Music* Mix_LoadMUS(file.c_str()); // tratatr nullptr
+        }
+        
+        bool IsOpen(){ return music == nullptr;}
 };

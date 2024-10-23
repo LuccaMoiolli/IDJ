@@ -1,8 +1,7 @@
-#define INCLUDE_SDL
 #define INCLUDE_SDL_IMAGE
-#include <SDL_include.h>
+// #include <SDL_include.h>
 #include <Game.h>
-#include <string>
+#include <Sprite.h>
 
 class Sprite{
     public:
@@ -24,7 +23,7 @@ class Sprite{
                 SDL_DestroyTexture(texture);
             
             try{
-                IMG_LoadTexture(game.GetRenderer(), file.c_str()); // como usa game aqui?
+                IMG_LoadTexture(Game::GetInstance().GetRenderer(), file.c_str());
             }catch(...){
                 SDL_Log(SDL_GetError());
                 SDL_Log("Falha ao carregar imagem");
@@ -44,7 +43,7 @@ class Sprite{
         void Render(int x, int y){
             SDL_Rect tmp(clipRect);
             tmp.x = x; tmp.y = y;
-            SDL_RenderCopy(game.GetRenderer(), texture, &clipRect, &tmp); // game dnv
+            SDL_RenderCopy(Game::GetInstance().GetRenderer(), texture, &clipRect, &tmp);
         }
 
         int GetWidth(){ return width;}

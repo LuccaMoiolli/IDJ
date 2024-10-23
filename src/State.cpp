@@ -1,7 +1,6 @@
 #define INCLUDE_SDL
 #include <SDL_include.h>
-#include <Sprite.h>
-#include <Music.h>
+#include <State.h>
 
 class State{
     public:
