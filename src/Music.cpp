@@ -1,40 +1,38 @@
 #include <Music.h>
+#define INCLUDE_SDL
+#include <SDL_include.h>
 
-class Music{
-    private:
-        Mix_Music* music;
-    public:
-        Music(){
-            music = nullptr;
-        }
+// Mix_Music* music;
+Music::Music(){
+    music = nullptr;
+}
 
-        Music(std::string file){
-            music = nullptr;
-            this->Open(file);
-        }
-        
-        ~Music(){
-            Stop(0);
-            Mix_FreeMusic(music);
-        }
+Music::Music(std::string file){
+    music = nullptr;
+    this->Open(file);
+}
 
-        void Play(int times = -1){
-            if(music == nullptr) return; // Talvez comunicar que aconteceu?
-            Mix_PlayMusic(music, times);
-        }
+Music::~Music(){
+    Stop(0);
+    Mix_FreeMusic(music);
+}
 
-        void Stop(int msToStop = 1500){
-            Mix_FadeOutMusic(msToStop);
-        }
+void Music::Play(int times){
+    if(music == nullptr) return; // Talvez comunicar que aconteceu?
+    Mix_PlayMusic(music, times);
+}
 
-        void Open(std::string file);{
-            music = Mix_LoadMUS(file.c_str()); 
-            if(music == nullptr){
-                SDL_Log(SDL_GetError());
-                SDL_Log("Musica nao BRIU");
-                throw SDL_GetError();
-            }
-        }
-        
-        bool IsOpen(){ return music == nullptr;}
-};
+void Music::Stop(int msToStop){
+    Mix_FadeOutMusic(msToStop);
+}
+
+void Music::Open(std::string file){
+    music = Mix_LoadMUS(file.c_str()); 
+    if(music == nullptr){
+        SDL_Log(SDL_GetError());
+        SDL_Log("Musica nao BRIU");
+        throw SDL_GetError();
+    }
+}
+
+bool Music::IsOpen(){ return music == nullptr;}

@@ -2,33 +2,24 @@
 #include <SDL_include.h>
 #include <State.h>
 
-class State{
-    public:
-        State(){
-            quitRequested = false;
-            bg = Sprite("Recursos/img/Background.png");
-            music = Music("Recursos/audio/BGM.wav");
-        }
+State::State(){
+    quitRequested = false;
+    bg = Sprite("Recursos/img/Background.png");
+    music = Music("Recursos/audio/BGM.wav");
+}
 
-        bool QuitRequested (){
-            return quitRequested;
-        }
+bool State::QuitRequested (){
+    return quitRequested;
+}
 
-        void LoadAssets (){
-            return;
-        }
+void State::LoadAssets (){
+    music.Play();
+}
 
-        void Update (float dt){
-            quitRequested = SDL_QuitRequested();
-        }
+void State::Update (float dt){
+    quitRequested = SDL_QuitRequested();
+}
 
-        void Render (){
-            bg.Render(0,0);
-        }
-
-
-    private:
-        Sprite bg;
-        Music music;
-        bool quitRequested;
-};
+void State::Render (){
+    bg.Render(0,0);
+}
